@@ -23,7 +23,7 @@ export default function Signup() {
       if (response.ok) {
         router.push('/login'); 
       } else {
-        console.error('Signup failed');
+        console.error('signup failed');
       }
     } catch (error) {
       console.error('Error signing up:', error);
