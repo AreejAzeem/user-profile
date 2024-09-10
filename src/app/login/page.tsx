@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { TextField, Button, Box, Typography } from '@mui/material';
 
 export default function Login() {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -35,23 +36,51 @@ export default function Login() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Login Page</h1>
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        onChange={handleChange}
-        required
-      />
-      <button type="submit">Login</button>
-    </form>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        padding: 3,
+        backgroundColor: '#f0f0f0',
+      }}
+    >
+      <Typography variant="h4" gutterBottom>
+        Login Page
+      </Typography>
+      <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: 400 }}>
+        <TextField
+          label="Email"
+          name="email"
+          type="email"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          onChange={handleChange}
+          required
+        />
+        <TextField
+          label="Password"
+          name="password"
+          type="password"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          onChange={handleChange}
+          required
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          fullWidth
+          sx={{ mt: 2 }}
+        >
+          Login
+        </Button>
+      </form>
+    </Box>
   );
 }
