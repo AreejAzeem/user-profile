@@ -26,7 +26,7 @@ export default function Signup() {
         console.error('signup failed');
       }
     } catch (error) {
-      console.error('Error signing up:', error);
+      console.error('error signing up:', error);
     }
   };
 
