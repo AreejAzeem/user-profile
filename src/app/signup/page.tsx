@@ -1,5 +1,6 @@
+"use client"; 
 import { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation'; 
 
 export default function Signup() {
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });
@@ -31,6 +32,7 @@ export default function Signup() {
   };
 
   return (
+    <>
     <form onSubmit={handleSubmit}>
       <h1>Signup Page</h1>
       <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
@@ -38,5 +40,6 @@ export default function Signup() {
       <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
       <button type="submit">Sign Up</button>
     </form>
+    </>
   );
 }
