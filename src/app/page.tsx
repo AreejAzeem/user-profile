@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Typography, Button, TextField, Paper, Alert, CircularProgress } from '@mui/material';
 import { jwtDecode } from "jwt-decode";
+import { useRouter } from 'next/navigation';
 
 type Profile = {
   username: string;
@@ -26,7 +27,7 @@ export default function Home() {
   const [editMode, setEditMode] = useState(false);
   const [updatedProfile, setUpdatedProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
-
+  const router = useRouter();
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -49,8 +50,8 @@ export default function Home() {
         setLoading(false);
       }
     } else {
-      setError('No token found');
-      setLoading(false);
+      router.push('/signup');
+      return;
     }
   }, []);
 
