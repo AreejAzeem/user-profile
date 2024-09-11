@@ -5,6 +5,7 @@ import { TextField, Button, Box, Typography } from '@mui/material';
 
 export default function Login() {
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const [error ,setError] = useState('');
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +29,9 @@ export default function Login() {
         localStorage.setItem('token', data.token); 
         router.push('/'); 
       } else {
-        console.error('Login failed');
+        const errorData = await response.json();
+        console.error('Login failed',errorData.message);
+        setError(errorData.message);
       }
     } catch (error) {
       console.error('Error logging in:', error);
@@ -71,6 +74,7 @@ export default function Login() {
           onChange={handleChange}
           required
         />
+        {error && <Typography color="error">{error}</Typography>}
         <Button
           type="submit"
           variant="contained"

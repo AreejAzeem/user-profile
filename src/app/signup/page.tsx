@@ -1,13 +1,15 @@
-"use client"; 
+"use client";
 import { useState } from 'react';
-import { useRouter } from 'next/navigation'; 
+import { useRouter } from 'next/navigation';
 import { TextField, Button, Box, Typography } from '@mui/material';
 export default function Signup() {
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });
+  const [error, setError] = useState('');
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -22,9 +24,11 @@ export default function Signup() {
       });
 
       if (response.ok) {
-        router.push('/login'); 
+        router.push('/login');
       } else {
-        console.error('signup failed');
+        const errorData = await response.json();
+        console.error('signup failed', errorData.message);
+        setError(errorData.message);
       }
     } catch (error) {
       console.error('error signing up:', error);
@@ -76,6 +80,11 @@ export default function Signup() {
           onChange={handleChange}
           required
         />
+        {error && (
+          <Typography color="error" sx={{ mt: 1 }}>
+            {error}
+          </Typography>
+        )}
         <Button
           type="submit"
           variant="contained"
@@ -86,6 +95,12 @@ export default function Signup() {
           Sign Up
         </Button>
       </form>
+      <Box sx={{ mt: 2, display: 'flex' }}>
+        <Typography variant="body2">Already have an account?</Typography>
+        <Typography variant="body2" sx={{ color: 'blue', cursor: 'pointer', marginLeft: 1, fontSize: 13 }} onClick={() => router.push('/login')}>
+          Login
+        </Typography>
+      </Box>
     </Box>
   );
 
